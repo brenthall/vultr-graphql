@@ -1,0 +1,11 @@
+type Backup {
+  BACKUPID: ID
+  date_created: Date
+  description: String
+  size: Float
+  status: String
+}
+
+type Query {
+  backup: [Backup]
+}

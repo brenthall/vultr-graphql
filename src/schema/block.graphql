@@ -1,0 +1,29 @@
+type Block {
+  SUBID: ID
+  date_created: Date
+  cost_per_month: Float
+  status: String
+  size_gb: Float
+  DCID: ID
+  region: Region
+  attached_to_SUBID: ID
+  server: Server
+  label: String
+}
+
+type Query {
+  block: [Block]
+}
+
+type Mutation {
+  attachStorage(SUBID: ID!, attach_to_SUBID: ID!): String
+  createStorage(DCID: ID!, size_gb: Int!, label: String): CreateStoragePayload
+  deleteStorage(SUBID: ID!): String
+  detachStorage(SUBID: ID!): String
+  labelSetStorage(SUBID: ID!, label: String): String
+  resizeStorage(SUBID: ID, size_gb: Int): String
+}
+
+type CreateStoragePayload {
+  SUBID: ID
+}

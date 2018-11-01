@@ -1,0 +1,175 @@
+type Server {
+  SUBID: ID!
+  #os: String
+  ram: String
+  disk: String
+  main_ip: String
+  vcpu_count: Int
+  DCID: ID
+  region: Region
+  default_password: String
+  date_created: Date
+  pending_charges: Float
+  status: String
+  cost_per_month: Float
+  current_bandwidth_gb: Float
+  allowed_bandwidth_gb: Float
+  netmask_v4: String
+  gateway_v4: String
+  power_status: String
+  server_state: String
+  VPSPLANID: ID
+  plan: Plan
+  v6_main_ip: String
+  v6_network_size: String
+  v6_network: String
+  v6_networks: [V6Network]
+  label: String
+  internal_ip: String
+  kvm_url: String
+  auto_backups: String
+  tag: String
+  OSID: ID
+  os: OS
+  app: App
+  APPID: ID
+  FIREWALLGROUPID: ID
+}
+
+type V6Network {
+  v6_main_ip: String
+  v6_network_size: String
+  v6_network: String
+}
+
+type Ipv4 {
+  ip: String
+  netmask: String
+  gateway: String
+  type: String
+  reverse: String
+}
+
+type Ipv6 {
+  ip: String
+  network: String
+  network_size: Float
+  type: String
+}
+
+type Ipv6Reverse {
+  ip: String
+  reverse: String
+}
+
+type PrivateNetwork {
+  NETWORKID: ID
+  mac_address: String
+  ip_address: String
+}
+
+type Bandwidth {
+  date: String
+  outgoing: Float
+  incoming: Float
+}
+
+type IsoStatus {
+  state: String
+  ISOID: Int
+}
+
+type Query {
+  server: [Server]
+  appChangeListServer(SUBID: ID!): [App]
+  bandwidthServer(SUBID: ID!): [Bandwidth]
+  getAppInfoServer(SUBID: ID!): String
+  getUserDataServer(SUBID: ID!): String
+  isoStatusServer(SUBID: ID!): IsoStatus
+  listIpv4Server(SUBID: ID!): [Ipv4]
+  listIpv6Server(SUBID: ID!): [Ipv6]
+  neighborsServer(SUBID: ID!): [String]
+  osChangeListServer(SUBID: ID!): [OS]
+  privateNetworksServer(SUBID: ID!): [PrivateNetwork]
+  reverseListIpv6Server(SUBID: ID!): [Ipv6Reverse]
+  upgradePlanListServer(SUBID: ID!): [String]
+}
+
+type Mutation {
+  createServer(input: CreateServerInput): CreateServerPayload
+  rebootServer(SUBID: ID!): String
+  haltServer(SUBID: ID!): String
+  startServer(SUBID: ID!): String
+  reinstallServer(SUBID: ID!): String
+  destroyServer(SUBID: ID!): String
+  backupEnableServer(SUBID: ID!): String
+  backupDisableServer(SUBID: ID!): String
+  ipv6EnableServer(SUBID: ID!): String
+  isoDetachServer(SUBID: ID!): String
+
+  # why is this a post?
+  backup_get_scheduleServer(SUBID: ID!): BackupSchedule
+  backup_set_scheduleServer(input: BackupScheduleInput): String
+  create_ipv4Server(SUBID: ID!, reboot: YesNo!): String
+  destroy_ipv4Server(SUBID: ID!, ip: String!): String
+  firewall_group_setServer(SUBID: ID!, FIREWALLGROUPID: ID!): String
+  iso_attachServer(SUBID: ID!): String
+  label_setServer(SUBID: ID!, label: String!): String
+  os_changeServer(SUBID: ID!, OSID: ID!): String
+  private_network_disableServer(SUBID: ID!, NETWORKID: ID!): String
+  private_network_enableServer(SUBID: ID!, NETWORKID: ID!): String
+  restore_backupServer(SUBID: ID!, BACKUPID: ID!): String
+  restore_snapshotServer(SUBID: ID!, SNAPSHOTID: ID!): String
+  reverse_default_ipv4Server(SUBID: ID!, ip: String!): String
+  reverse_delete_ipv6Server(SUBID: ID!, ip: String!): String
+  reverse_set_ipv4Server(SUBID: ID!, ip: String!, entry: String!): String
+  reverse_set_ipv6Server(SUBID: ID!, ip: String!, entry: String!): String
+  set_user_dataServer(SUBID: ID!, userdata: String!): String
+  tag_setServer(SUBID: ID!, tag: String!): String
+  upgrade_planServer(SUBID: ID!, VPSPLANID: ID!): String
+}
+
+input BackupScheduleInput {
+  SUBID: Boolean!
+  cron_type: CronType!
+  hour: Int
+  dow: Int
+  dom: Int
+}
+
+type BackupSchedule {
+  enabled: Boolean
+  cron_type: CronType
+  next_scheduled_time_utc: String
+  hour: Int
+  dow: Int
+  dom: Int
+}
+
+input CreateServerInput {
+  DCID: ID!
+  VPSPLANID: ID!
+  OSID: ID!
+  ipxe_chain_url: String
+  ISOID: ID
+  SCRIPTID: ID
+  SNAPSHOTID: ID
+  enable_ipv6: YesNo
+  enable_private_network: YesNo
+  NETWORKID: [ID]
+  label: String
+  SSHKEYID: String
+  auto_backups: YesNo
+  APPID: ID
+  userdata: String
+  notify_activate: YesNo
+  ddos_protection: YesNo
+  reserved_ip_v4: String
+  hostname: String
+  tag: String
+  FIREWALLGROUPID: ID
+}
+
+type CreateServerPayload {
+  SUBID: ID
+}

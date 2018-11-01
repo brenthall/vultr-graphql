@@ -1,0 +1,58 @@
+type Query {
+  group_listFirewall(FIREWALLGROUPID: ID): [FirewallGroup]
+  rule_listFirewall(
+    FIREWALLGROUPID: ID!
+    direction: String
+    ip_type: IpType
+  ): [FirewallRule]
+}
+
+type Mutation {
+  group_createFirewall(description: String): groupCreateFirewallPayload
+  group_deleteFirewall(FIREWALLGROUPID: ID!): String
+  group_set_descriptionFirewall(
+    FIREWALLGROUPID: ID
+    description: String
+  ): String
+  rule_createFirewall(input: ruleCreateFirewallInput): ruleCreateFirewallPayload
+  rule_deleteFirewall(FIREWALLGROUPID: ID!, rulenumber: Int!): String
+}
+
+input ruleCreateFirewallInput {
+  FIREWALLGROUPID: ID
+  direction: String
+  ip_type: IpType
+  protocol: IpProtocol
+  subnet: String
+  subnet_size: Int
+  port: Int
+  notes: String
+}
+
+type ruleCreateFirewallPayload {
+  rulenumber: Int
+}
+
+type groupCreateFirewallPayload {
+  FIREWALLGROUPID: ID
+}
+
+type FirewallGroup {
+  FIREWALLGROUPID: ID
+  description: String
+  date_created: Date
+  date_modified: String
+  instance_count: Int
+  rule_count: Int
+  max_rule_count: Int
+}
+
+type FirewallRule {
+  rulenumber: Int
+  action: String
+  protocol: String
+  port: Int
+  subnet: String
+  subnet_size: Int
+  notes: String
+}

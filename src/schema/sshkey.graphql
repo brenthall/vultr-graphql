@@ -1,0 +1,31 @@
+type SSHKey {
+  SSHKEYID: ID
+  date_created: Date
+  name: String
+  ssh_key: String
+}
+
+type Query {
+  sshkey: [SSHKey]
+}
+
+type Mutation {
+  createSshKey(input: CreateSshKeyInput): CreateSshKeyPayload
+  destroySshKey(SSHKEYID: ID!): String
+  updateSshKey(input: UpdateSshKeyInput): String
+}
+
+input CreateSshKeyInput {
+  name: String
+  ssh_key: String
+}
+
+input UpdateSshKeyInput {
+  SSHKEYID: ID!
+  name: String
+  ssh_key: String
+}
+
+type CreateSshKeyPayload {
+  SSHKEYID: ID
+}

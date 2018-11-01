@@ -1,0 +1,58 @@
+type DNS {
+  domain: String
+  date_created: Date
+}
+
+type DNSRecord {
+  type: String
+  name: String
+  data: String
+  priority: Int
+  RECORDID: ID
+  ttl: Int
+}
+
+type Query {
+  dns: [DNS]
+  dnsRecords(domain: String!): [DNSRecord]
+  dnssecInfoDNS(domain: String!): [String]
+  soaInfoDNS(domain: String!): soaInfoDNSPayload
+}
+
+type Mutation {
+  createDomainDNS(domain: String!, serverip: String): String
+  createRecordDNS(input: CreateRecordDNSInput): String
+  deleteRecordDNS(domain: String!, RECORDID: ID): String
+  dnssecEnableDNS(domain: String!, enable: YesNo): String
+  soaUpdateDNS(input: soaUpdateDNSInput): String
+  updateRecordDNS(input: updateRecordDNSInput): String
+}
+
+input CreateRecordDNSInput {
+  domain: String
+  name: String
+  type: String
+  data: String
+  ttl: Int
+  priority: Int
+}
+
+type soaInfoDNSPayload {
+  nsprimary: String
+  email: String
+}
+
+input soaUpdateDNSInput {
+  domain: String
+  nsprimary: String
+  email: String
+}
+
+input updateRecordDNSInput {
+  RECORDID: ID!
+  domain: String!
+  name: String
+  data: String
+  ttl: Int
+  priority: Int
+}

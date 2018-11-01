@@ -1,0 +1,40 @@
+scalar Date
+scalar Email
+
+enum StartupScriptType {
+  boot
+  pxe
+}
+
+enum IpProtocol {
+  icmp
+  tcp
+  udp
+  gre
+}
+
+enum PlanType {
+  all
+  vc2
+  ssd
+  vdc2
+  dedicated
+}
+
+enum IpType {
+  v4
+  v6
+}
+
+enum CronType {
+  daily
+  weekly
+  monthly
+  daily_alt_even
+  daily_alt_odd
+}
+
+enum YesNo {
+  yes
+  no
+}

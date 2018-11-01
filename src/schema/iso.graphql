@@ -1,0 +1,12 @@
+type Iso {
+  ISOID: ID
+  date_created: Date
+  filename: String
+  size: Float
+  md5sum: String
+  status: String
+}
+
+type Query {
+  iso: [Iso]
+}

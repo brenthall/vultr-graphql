@@ -1,0 +1,11 @@
+type OS {
+  OSID: ID!
+  name: String
+  arch: String
+  family: String
+  windows: Boolean
+}
+
+type Query {
+  os: [OS]
+}

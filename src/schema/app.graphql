@@ -1,0 +1,11 @@
+type App {
+  APPID: ID
+  name: String
+  short_name: String
+  deploy_name: String
+  surcharge: Float
+}
+
+type Query {
+  app: [App]
+}

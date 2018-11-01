@@ -1,0 +1,8 @@
+{
+  "restartable": "rs",
+  "verbose": true,
+  "watch": ["src/**/*.ts", "src/**/*.graphql"],
+  "ignore": ["src/**/*.spec.ts"],
+  "ext": "ts js json graphql",
+  "exec": "ts-node src/index.ts"
+}

@@ -1,0 +1,25 @@
+type Snapshot {
+  SNAPSHOTID: ID
+  date_created: Date
+  description: String
+  size: Float
+  status: String
+  OSID: ID
+  os: OS
+  APPID: ID
+  app: App
+}
+
+type Query {
+  snapshot: [Snapshot]
+}
+
+type Mutation {
+  createSnapshot(SUBID: ID!, description: String): createSnapshotPayload
+  createFromUrlSnapshot(url: String): createSnapshotPayload
+  destroySnapshot(SNAPSHOTID: ID!): String
+}
+
+type createSnapshotPayload {
+  SNAPSHOTID: ID
+}

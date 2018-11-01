@@ -1,0 +1,14 @@
+type Region {
+  DCID: ID!
+  name: String
+  country: String
+  continent: String
+  state: String
+  ddos_protection: Boolean
+  block_storage: Boolean
+  regioncode: String
+}
+
+type Query {
+  regions: [Region]
+}

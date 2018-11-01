@@ -1,0 +1,11 @@
+type User {
+  USERID: ID
+  name: String
+  email: String
+  api_enabled: String
+  acls: [String]
+}
+
+type Query {
+  user: [User]
+}

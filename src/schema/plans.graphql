@@ -1,0 +1,16 @@
+type Plan {
+  VPSPLANID: ID
+  name: String
+  vcpu_count: Int
+  ram: Float
+  disk: Float
+  bandwidth: Float
+  price_per_month: Float
+  windows: Boolean
+  plan_type: String
+  available_locations: [ID]
+}
+
+type Query {
+  plans(type: PlanType!): [Plan]
+}

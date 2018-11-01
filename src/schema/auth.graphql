@@ -1,0 +1,9 @@
+type Auth {
+  acls: [String]
+  email: Email
+  name: String
+}
+
+type Query {
+  auth: Auth
+}

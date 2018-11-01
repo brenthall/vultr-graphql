@@ -1,0 +1,35 @@
+type StartupScript {
+  SCRIPTID: ID
+  date_created: Date
+  date_modified: Date
+  name: String
+  type: StartupScriptType
+  script: String
+}
+
+type Query {
+  listStartupScript: [StartupScript]
+}
+
+type Mutation {
+  createStartupScript(input: StartupScriptInput): StartupScriptPayload
+  destroyStartupScript(SCRIPTID: ID!): String
+  updateStartupScript(input: updateStartupScriptInput): String
+}
+
+input StartupScriptInput {
+  name: String
+  script: String
+  type: StartupScriptType
+}
+
+input updateStartupScriptInput {
+  SCRIPTID: ID!
+  name: String
+  script: String
+  type: StartupScriptType
+}
+
+type StartupScriptPayload {
+  SCRIPTID: ID
+}

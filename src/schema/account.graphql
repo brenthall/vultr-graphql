@@ -1,0 +1,10 @@
+type Account {
+  balance: Float
+  pending_charges: Float
+  last_payment_date: Date
+  last_payment_amount: Float
+}
+
+type Query {
+  account: Account
+}

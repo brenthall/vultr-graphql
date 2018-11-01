@@ -1,0 +1,29 @@
+type Network {
+  DCID: ID
+  region: Region
+  NETWORKID: ID
+  date_created: Date
+  description: String
+  v4_subnet: String
+  v4_subnet_mask: Int
+}
+
+type Query {
+  network: [Network]
+}
+
+type Mutation {
+  createNetwork(input: CreateNetworkInput): CreateNetworkPayload
+  destroyNetwork(NETWORKID: ID!): String
+}
+
+input CreateNetworkInput {
+  DCID: ID
+  description: String
+  v4_subnet: String
+  v4_subnet_mask: Int
+}
+
+type CreateNetworkPayload {
+  NETWORKID: ID
+}

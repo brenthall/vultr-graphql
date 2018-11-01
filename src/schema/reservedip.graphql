@@ -1,0 +1,51 @@
+type ReservedIp {
+  SUBID: ID
+  DCID: ID
+  ip_type: IpType
+  subnet: String
+  subnet_size: Int
+  label: String
+  attached_SUBID: ID
+
+  server: Server
+  region: Region
+}
+
+type Query {
+  reservedip: [ReservedIp]
+}
+
+type Mutation {
+  createReservedIp(input: ReservedIpInput): ReservedIpInputPayload
+  attachReservedIp(input: AttachReservedIpInput): String
+  detachReservedIp(input: DetachReservedIpInput): String
+  convertReservedIp(input: ConvertReservedIpInput): ReservedIpInputPayload
+  destroyReservedIp(ip_address: String!): String
+}
+
+input ConvertReservedIpInput {
+  SUBID: ID!
+  ip_address: String!
+  label: String
+}
+
+input DetachReservedIpInput {
+  ip_address: String!
+
+  detach_SUBID: ID!
+}
+
+input AttachReservedIpInput {
+  ip_address: String!
+  attach_SUBID: ID!
+}
+
+input ReservedIpInput {
+  DCID: ID
+  ip_type: IpType
+  label: String
+}
+
+type ReservedIpInputPayload {
+  SUBID: ID
+}
