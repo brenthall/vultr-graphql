@@ -26,15 +26,13 @@ export const vultr = {
   } = {}) =>
     cache
       ? await withCache
-          .get(`${resource}/${action}`, { params: { ...args } })
-          .then(({ data }) => (item ? data : vultr.flatten(data)))
-      : await axios
           .get(`${resource}/${action}`, {
             params: { ...args },
-            headers: {
-              API: ""
-            }
+            headers: { API: "" }
           })
+          .then(({ data }) => (item ? data : vultr.flatten(data)))
+      : await axios
+          .get(`${resource}/${action}`, { params: { ...args } })
           .then(({ data }) => (item ? data : vultr.flatten(data))),
   mutate: async ({
     resource = "",
@@ -44,5 +42,5 @@ export const vultr = {
   } = {}) =>
     await axios
       .post(`${resource}/${action}`, qs.stringify(args))
-      .then(response => (status ? response.statusText : response.data))
+      .then(({ statusText, data }) => (status ? statusText : data))
 };
